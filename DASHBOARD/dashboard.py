@@ -4,7 +4,13 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 
 
-all_data_df = pd.read_csv("all_data.csv")
+try:
+    all_data_df = pd.read_csv("all_data.csv")
+except FileNotFoundError:
+    st.error("File not found: all_data.csv. Please check the path.")
+except Exception as e:
+    st.error(f"An error occurred: {e}")
+
 
 # Ensure 'order_purchase_timestamp' is in datetime format
 all_data_df['order_purchase_timestamp'] = pd.to_datetime(all_data_df['order_purchase_timestamp'])
