@@ -1,41 +1,39 @@
+import os
 import pandas as pd
 import streamlit as st
 import matplotlib.pyplot as plt
 import seaborn as sns
 
-import os
-
 # Load the data
 file_path = "dashboard/all_data.csv"  # Adjust the path if necessary
 if os.path.exists(file_path):
-    all_df = pd.read_csv(file_path)
+    all_data_df = pd.read_csv(file_path)
 else:
     st.error(f"File '{file_path}' not found.")
     st.stop()
 
-
 # Ensure 'order_purchase_timestamp' is in datetime format
-all_df['order_purchase_timestamp'] = pd.to_datetime(all_df['order_purchase_timestamp'])
+all_data_df['order_purchase_timestamp'] = pd.to_datetime(all_data_df['order_purchase_timestamp'])
 
 # Extract month names for easier selection
-all_df['month'] = all_df['order_purchase_timestamp'].dt.month_name()
+all_data_df['month'] = all_data_df['order_purchase_timestamp'].dt.month_name()
 
 # App title
 st.title("Sales Data Visualization")
 
 # Sidebar filter for selecting year
-selected_year = st.sidebar.selectbox('Select Year', all_df['order_purchase_timestamp'].dt.year.unique())
+selected_year = st.sidebar.selectbox('Select Year', all_data_df['order_purchase_timestamp'].dt.year.unique())
 
 # Sidebar filter for selecting month or 'All'
-month_option = st.sidebar.radio('Select Month or View All', ['All Months'] + all_df['month'].unique().tolist())
+month_option = st.sidebar.radio('Select Month or View All', ['All Months'] + all_data_df['month'].unique().tolist())
 
 # Filter data based on year and month selection
 if month_option == 'All Months':
-    filtered_data = all_df[all_df['order_purchase_timestamp'].dt.year == selected_year]
+    filtered_data = all_data_df[all_data_df['order_purchase_timestamp'].dt.year == selected_year]
 else:
     filtered_data = all_data_df[
-        (all_df['order_purchase_timestamp'].dt.year == selected_year) & 
-        (all_df['month'] == month_option)
+        (all_data_df['order_purchase_timestamp'].dt.year == selected_year) & 
+        (all_data_df['month'] == month_option)
     ]
 
 # Business Question 1: Most and Least Sold Product Categories
