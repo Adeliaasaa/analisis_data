@@ -2,9 +2,14 @@ import pandas as pd
 import streamlit as st
 import matplotlib.pyplot as plt
 import seaborn as sns
+import os
 
-# Load the data
-all_data_df = pd.read_csv('dashboard/all_data.csv')
+try:
+    all_data_df = pd.read_csv('all_data.csv')
+except FileNotFoundError:
+    print("File 'all_data.csv' not found. Please check the path.")
+    print("Current Working Directory:", os.getcwd())
+
 
 # Ensure 'order_purchase_timestamp' is in datetime format
 all_data_df['order_purchase_timestamp'] = pd.to_datetime(all_data_df['order_purchase_timestamp'])
