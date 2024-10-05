@@ -5,13 +5,13 @@ import seaborn as sns
 
 import os
 
-# Attempt to load the CSV file
-file_path = "dashboard/all_data.csv"  # Adjust path if necessary
+# Load the data
+file_path = "dashboard/all_data.csv"  # Adjust the path if necessary
 if os.path.exists(file_path):
     all_df = pd.read_csv(file_path)
 else:
-    st.error(f"File not found: {file_path}. Please check the path.")
-    st.stop()  # Stop the execution if the file is not found
+    st.error(f"File '{file_path}' not found.")
+    st.stop()
 
 
 # Ensure 'order_purchase_timestamp' is in datetime format
