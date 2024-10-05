@@ -5,8 +5,14 @@ import seaborn as sns
 import os
 
 # Specify the path to your CSV file
-file_path = 'all_data.csv'
-data_df = pd.read_csv(file_path)
+file_path = 'all_data.csv'  # Update this if necessary
+
+# Check if the file exists
+if os.path.exists(file_path):
+    all_data_df = pd.read_csv(file_path)
+else:
+    st.error(f"File not found: {file_path}. Please check the path.")
+    st.stop()  # Stop execution if the file is not found
 
 # Ensure 'order_purchase_timestamp' is in datetime format
 all_data_df['order_purchase_timestamp'] = pd.to_datetime(all_data_df['order_purchase_timestamp'])
