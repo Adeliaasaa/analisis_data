@@ -4,14 +4,13 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 import os
 
-# Specify the path to your CSV file
-file_path = 'dashboard/all_data.csv'  # Update this if necessary
+# Load the path from an environment variable
+file_path = os.getenv('all_data.csv')
 
-# Check if the file exists
-if os.path.exists(file_path):
+if file_path and os.path.exists(file_path):
     all_data_df = pd.read_csv(file_path)
 else:
-    st.error(f"File not found: {file_path}. Please check the path.")
+    st.error("File not found or environment variable not set.")
     st.stop()  # Stop execution if the file is not found
 
 # Ensure 'order_purchase_timestamp' is in datetime format
