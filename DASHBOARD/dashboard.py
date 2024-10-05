@@ -4,7 +4,7 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 
 # Load the data
-all_data_df = pd.read_csv('all_data.csv')
+all_data_df = pd.read_csv('dashboard/all_data.csv')
 
 # Ensure 'order_purchase_timestamp' is in datetime format
 all_data_df['order_purchase_timestamp'] = pd.to_datetime(all_data_df['order_purchase_timestamp'])
