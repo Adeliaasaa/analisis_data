@@ -3,37 +3,30 @@ import streamlit as st
 import matplotlib.pyplot as plt
 import seaborn as sns
 
-
-try:
-    all_data_df = pd.read_csv("all_data.csv")
-except FileNotFoundError:
-    st.error("File not found: all_data.csv. Please check the path.")
-except Exception as e:
-    st.error(f"An error occurred: {e}")
-
+all_df = pd.read_csv("all_data.csv")
 
 # Ensure 'order_purchase_timestamp' is in datetime format
-all_data_df['order_purchase_timestamp'] = pd.to_datetime(all_data_df['order_purchase_timestamp'])
+all_df['order_purchase_timestamp'] = pd.to_datetime(all_df['order_purchase_timestamp'])
 
 # Extract month names for easier selection
-all_data_df['month'] = all_data_df['order_purchase_timestamp'].dt.month_name()
+all_df['month'] = all_df['order_purchase_timestamp'].dt.month_name()
 
 # App title
 st.title("Sales Data Visualization")
 
 # Sidebar filter for selecting year
-selected_year = st.sidebar.selectbox('Select Year', all_data_df['order_purchase_timestamp'].dt.year.unique())
+selected_year = st.sidebar.selectbox('Select Year', all_df['order_purchase_timestamp'].dt.year.unique())
 
 # Sidebar filter for selecting month or 'All'
-month_option = st.sidebar.radio('Select Month or View All', ['All Months'] + all_data_df['month'].unique().tolist())
+month_option = st.sidebar.radio('Select Month or View All', ['All Months'] + all_df['month'].unique().tolist())
 
 # Filter data based on year and month selection
 if month_option == 'All Months':
-    filtered_data = all_data_df[all_data_df['order_purchase_timestamp'].dt.year == selected_year]
+    filtered_data = all_df[all_df['order_purchase_timestamp'].dt.year == selected_year]
 else:
     filtered_data = all_data_df[
-        (all_data_df['order_purchase_timestamp'].dt.year == selected_year) & 
-        (all_data_df['month'] == month_option)
+        (all_df['order_purchase_timestamp'].dt.year == selected_year) & 
+        (all_df['month'] == month_option)
     ]
 
 # Business Question 1: Most and Least Sold Product Categories
