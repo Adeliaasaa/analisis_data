@@ -6,7 +6,7 @@ import seaborn as sns
 import os
 
 # Attempt to load the CSV file
-file_path = "all_data.csv"  # Adjust path if necessary
+file_path = "dashboard/all_data.csv"  # Adjust path if necessary
 if os.path.exists(file_path):
     all_df = pd.read_csv(file_path)
 else:
