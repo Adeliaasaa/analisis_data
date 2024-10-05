@@ -5,7 +5,7 @@ import seaborn as sns
 import os
 
 # Specify the path to your CSV file
-file_path = 'all_data.csv'  # Update this if necessary
+file_path = 'dashboard/all_data.csv'  # Update this if necessary
 
 # Check if the file exists
 if os.path.exists(file_path):
