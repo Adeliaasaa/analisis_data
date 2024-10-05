@@ -2,16 +2,9 @@ import pandas as pd
 import streamlit as st
 import matplotlib.pyplot as plt
 import seaborn as sns
-import os
 
-# Load the path from an environment variable
-file_path = os.getenv('all_data.csv')
 
-if file_path and os.path.exists(file_path):
-    all_data_df = pd.read_csv(file_path)
-else:
-    st.error("File not found or environment variable not set.")
-    st.stop()  # Stop execution if the file is not found
+all_data_df = pd.read_csv("all_data.csv")
 
 # Ensure 'order_purchase_timestamp' is in datetime format
 all_data_df['order_purchase_timestamp'] = pd.to_datetime(all_data_df['order_purchase_timestamp'])
